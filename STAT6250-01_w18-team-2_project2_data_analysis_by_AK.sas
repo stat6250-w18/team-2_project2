@@ -53,6 +53,60 @@ Follow-up Steps:
 
 ;
 
+*******************************************************************************;
+* Research Question Analysis Starting Point;
+*******************************************************************************;
+
+title1
+'Research Question: How does charter schools compare to public schools in 
+expulsion?'
+;
+
+title2
+'Rationale:This will help in identifying which schools perform better and look 
+at adopting any best practices.'
+;
+
+*
+Note: Compares the expulsion count by Charter school type across both the 
+datasets for the years 2015-16 and 2016-17.
+
+Methodology: Combine the datasets to get the total figures.
+
+Limitations:
+
+Followup Steps:
+
+;
+
+*******************************************************************************;
+* Research Question Analysis Starting Point;
+*******************************************************************************;
+
+title1
+'Research Question: Does Reduced Meals program help in controlling the 
+expulsion?'
+;
+
+title2
+'Rationale: This can help in identifying if student benefits, encourage students
+to grow up with good beahivours controlling the expulsion scenarios.
+;
+
+*
+Note: Compare the expulsion data with student free meal eligibility datasets and
+identify a pattern.
+
+Methodology: Combine the two datasets using the country code,district code and 
+school code. 
+
+Limitations:
+
+Followup Steps:
+
+;
+
+
 
 
 
