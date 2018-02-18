@@ -4,7 +4,7 @@
 *******************************************************************************;
 
 *
-[Dataset 1 Name] Expulsion1516
+[Dataset 1 Name] EXP1516
 
 [Dataset Description] Expulsion data for 2015-2016 (July 1 – June 30) school year in California
 
@@ -22,7 +22,7 @@
 
 --
 
-[Dataset 2 Name] Expulsion1617
+[Dataset 2 Name] EXP1617
 
 [Dataset Description] Expulsion data for 2016-2017 (July 1 – June 30) school year in California
 
