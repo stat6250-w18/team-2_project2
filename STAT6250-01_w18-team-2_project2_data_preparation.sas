@@ -61,3 +61,74 @@
 * environmental setup;
 
 * create output formats;
+
+
+* setup environmental parameters;
+%let inputDataset1URL =
+https://github.com/stat6250/team-2_project2/blob/master/data/EXP1516.xls?raw=true
+;
+%let inputDataset1Type = XLS;
+%let inputDataset1DSN = EXP1516_raw;
+
+%let inputDataset2URL =
+https://github.com/stat6250/team-2_project2/blob/master/data/EXP1617.xls?raw=true
+;
+%let inputDataset2Type = XLS;
+%let inputDataset2DSN = EXP1617_raw;
+
+%let inputDataset3URL =
+https://github.com/stat6250/team-2_project2/blob/master/data/FRM1617.xls?raw=true
+;
+%let inputDataset3Type = XLS;
+%let inputDataset3DSN = FRM1617_raw;
+
+
+* load raw datasets over the wire, if they doesn't already exist;
+%macro loadDataIfNotAlreadyAvailable(dsn,url,filetype);
+    %put &=dsn;
+    %put &=url;
+    %put &=filetype;
+    %if
+        %sysfunc(exist(&dsn.)) = 0
+    %then
+        %do;
+            %put Loading dataset &dsn. over the wire now...;
+            filename tempfile "%sysfunc(getoption(work))/tempfile.xlsx";
+            proc http
+                method="get"
+                url="&url."
+                out=tempfile
+                ;
+            run;
+            proc import
+                file=tempfile
+                out=&dsn.
+                dbms=&filetype.;
+            run;
+            filename tempfile clear;
+        %end;
+    %else
+        %do;
+            %put Dataset &dsn. already exists. Please delete and try again.;
+        %end;
+%mend;
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset1DSN.,
+    &inputDataset1URL.,
+    &inputDataset1Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset2DSN.,
+    &inputDataset2URL.,
+    &inputDataset2Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset3DSN.,
+    &inputDataset3URL.,
+    &inputDataset3Type.
+)
+
+
+* sort and check raw datasets for duplicates with respect to their unique ids,
+  removing blank rows, if needed;
+
