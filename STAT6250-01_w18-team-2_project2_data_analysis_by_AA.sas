@@ -41,7 +41,7 @@ title2
 Note: This compares the column "districts" and "total expulsions" from EXP1516
 to the column of the same name from EXP1617.
 
-Methodology: 
+Methodology: After combining EXP1516 and EXP1617 during data preparation.
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for percentages
@@ -51,6 +51,20 @@ Followup Steps: More carefully clean values in order to filter out any possible
 illegal values, and better handle missing data, e.g., by using a previous year's
 data or a rolling average of previous years' data as a proxy.
 ;
+
+proc print
+        data=(Dataset name)(obs=3)
+    ;
+    id
+        district_name
+    ;
+    var
+        total_expulsion
+    ;
+run;
+
+title;
+footnote;
 
 
 *******************************************************************************;
@@ -69,7 +83,8 @@ title2
 Note: This compares the column "School name" and "total expulsions from EXP1516
 to the column of the same name from EXP1617.
 
-Methodology: Use proc freq
+Methodology: Use proc print to display the first five schools with highest 
+expulsion. May need to use prof freq.
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for percentages
@@ -79,6 +94,20 @@ Followup Steps: More carefully clean values in order to filter out any possible
 illegal values, and better handle missing data, e.g., by using a previous year's
 data or a rolling average of previous years' data as a proxy.
 ;
+
+proc print
+        data=(Dataset name)(obs=5)
+    ;
+    id
+        school_name
+    ;
+    var
+        total_expulsion
+    ;
+run;
+
+title;
+footnote;
 
 
 *******************************************************************************;
