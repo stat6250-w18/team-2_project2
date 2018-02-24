@@ -131,4 +131,45 @@ https://github.com/stat6250/team-2_project2/blob/master/data/FRM1617.xls?raw=tru
 
 * sort and check raw datasets for duplicates with respect to their unique ids,
   removing blank rows, if needed;
+proc sort
+        nodupkey
+        data=EXP1516_raw
+        dupout=EXP1516_raw_dups
+        out=EXP1516_raw_sorted(where=(not(missing(School_Code))))
+    ;
+    by
+        County_Code
+        District_Code
+        School_Code
+    ;
+run;
+proc sort
+        nodupkey
+        data=EXP1617_raw
+        dupout=EXP1617_raw_dups
+        out=EXP1617_raw_sorted
+    ;
+    by
+        County_Code
+        District_Code
+        School_Code
+    ;
+run;
+proc sort
+        nodupkey
+        data=FRM1617_raw
+        dupout=FRM1617_raw_dups
+        out=FRM1617_raw_sorted
+    ;
+    by
+        County_Code
+        District_Code
+        School_Code
+    ;
+run;
 
+
+* combine data sets vertically;
+
+
+* combine data sets horizontally;
