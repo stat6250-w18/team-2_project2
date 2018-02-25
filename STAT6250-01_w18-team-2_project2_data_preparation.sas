@@ -173,6 +173,7 @@ run;
  data exp_analytic_file;
     retain
         Academic_year
+        Aggregate_level
         County_code
         District_code
         School_Code
@@ -191,6 +192,7 @@ run;
     ;
     keep
         Academic_year
+        Aggregate_Level
         County_code
         District_code
         School_Code
