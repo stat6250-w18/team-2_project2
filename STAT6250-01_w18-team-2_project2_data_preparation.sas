@@ -169,8 +169,8 @@ proc sort
 run;
 
 
-* combine EXP data vertically, combine composite key values into a primary key
- data EXP_analytic_file;
+* combine expulsions data vertically, combine composite key values into a primary key
+ data exp_analytic_file;
     retain
         CDS_Code
     ;
