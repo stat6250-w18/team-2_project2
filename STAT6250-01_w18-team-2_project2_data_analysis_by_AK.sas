@@ -17,13 +17,13 @@ See included file for dataset properties
 
 * environmental setup;
 
-* set relative file import path to current directory (using standard SAS trick);X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
+* set relative file import path to current directory (using standard SAS trick);
+X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
 * load external file that generates analytic datasets 
 * file names
 %include '.\STAT6250-01_w18-team-2_project2_data_preparation.sas';
-
 
 
 *******************************************************************************;
@@ -43,13 +43,15 @@ overcoming expulsion.'
 Note : This compares the "Reasons" column across the datasets for the years 
 2015-16 and 2016-17.
 
-Methodology: Combine the two datasets to get the total figures for the period 
+Methodology: Combine the two expulsion datasets to get the total figures
+for the period. Both the expulsion datasets are combined on the County,
+District and School codes.
 
 Limitations: In case of multiple expulsion for same student, there are specific
 columns to give the unique expulsion count. However, data has to be analysed to
 check how the reasons are treated for multiple expulsions for same student.
 
-Follow-up Steps:
+Follow-up Steps:Analyze and clean the data for any redundant expulsion counts.
 
 ;
 
@@ -71,11 +73,15 @@ at adopting any best practices.'
 Note: Compares the expulsion count by Charter school type across both the 
 datasets for the years 2015-16 and 2016-17.
 
-Methodology: Combine the datasets to get the total figures.
+Methodology: Combine the two expulsion datasets to get the total figures
+for the period.Both the expulsion datasets are combined on the County,
+District and School codes.
 
-Limitations:
+Limitations: Charter schools vary by funding types.Further drill down by
+Charter school funding type is not possible with only these datasets.
 
-Followup Steps:
+Followup Steps:Analyse the data to check if any School level aggregates
+have a NULL value for Charter Type.
 
 ;
 
@@ -89,20 +95,25 @@ expulsion?'
 ;
 
 title2
-'Rationale: This can help in identifying if student benefits, encourage students
-to grow up with good beahivours controlling the expulsion scenarios.
+'Rationale: This can help in identifying if student benefits, encourage 
+students to grow up with good beahivours controlling the expulsion 
+scenarios.
 ;
 
 *
-Note: Compare the expulsion data with student free meal eligibility datasets and
-identify a pattern.
+Note: Compare the expulsion data with student free meal eligibility datasets
+and identify a pattern.
 
-Methodology: Combine the two datasets using the country code,district code and 
-school code. 
+Methodology: Combine the 2016-17 expulsion and FRPM datasets using the country
+code,district code and school code. 
 
-Limitations:
+Limitations:These two datasets may not have accounted for all Schools Data
+and hence this research will not give a complete picture of the relation
+between Reduced Meals program and Expulsions.
 
-Followup Steps:
+Followup Steps:Analyze and clean the data to verify if all the records in 
+Expulsion and FRPM datasets were mapped. This is to identify if any of 
+these datasets have uncaptured schools.
 
 ;
 
