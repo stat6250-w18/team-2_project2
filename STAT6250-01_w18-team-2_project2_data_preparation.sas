@@ -169,7 +169,64 @@ proc sort
 run;
 
 
-* combine data sets vertically;
+* combine EXP data vertically, combine composite key values into a primary key
+ data EXP_analytic_file;
+    retain
+        CDS_Code
+    ;
+    length
+        CDS_Code $14.
+    ;
+    set
+        EXP1516_raw_sorted(in=ay2016_data_row)
+        EXP1415_raw_sorted(in=ay2015_data_row)
+    ;
+    by
+        County_Code
+        District_Code
+        School_Code
+    ;
+    if
+        ay2015_data_row=1
+        and
+        substr(School_Code,1,6) ne "000000"
+    then
+        do;
+            CDS_Code = cats(County_Code,District_Code,School_Code);
+            ;
+            output;
+        end;
+run;
 
 
-* combine data sets horizontally;
+* combine 2016-17 EXP and FRPM datasets horizontally to address research questions in data analysis files
+data exp_frpm_analytic_file;
+    retain
+        Charter
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_of_students_expelled
+        Expulsion_Rate
+        NSLP_Provision_status
+        Free_Meal_Count_K12
+        Percent_Eligible_Free_K12
+        FRPM_count_K12
+    ;
+    keep
+        Charter
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_of_students_expelled
+        Expulsion_Rate
+        NSLP_Provision_status
+        Free_Meal_Count_K12
+        Percent_Eligible_Free_K12
+        FRPM_count_K12
+    ;
+    merge
+        exp_analytic_file
+        FRPM1617_raw_sorted
+    ;
+    by
+        CDS_Code
+    ;
