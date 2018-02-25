@@ -169,10 +169,56 @@ proc sort
 run;
 
 
-* combine data sets vertically;
-
-
-* combine data sets horizontally;
+* combine expulsions data vertically, combine composite key values into a primary key
+ data exp_analytic_file;
+    retain
+        Academic_year
+        Aggregate_level
+        County_code
+        District_code
+        School_Code
+        Charter
+        Reporting_Category
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_students_expelled_total
+        Expulsion_Rate
+        Expulsion_count_Violent_Incident_Injury
+        Expulsion_count_Violent_Incident_No_Injury
+        Expulsion_count_Weapons_Possession
+        Expulsion_count_Illicit_Drug_Related
+        Expulsion_count_Defiance_only
+        Expulsion_count_Other_Reasons
+    ;
+    keep
+        Academic_year
+        Aggregate_Level
+        County_code
+        District_code
+        School_Code
+        Charter
+        Reporting_Category
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_students_expelled_total
+        Expulsion_Rate
+        Expulsion_count_Violent_Incident_Injury
+        Expulsion_count_Violent_Incident_No_Injury
+        Expulsion_count_Weapons_Possession
+        Expulsion_count_Illicit_Drug_Related
+        Expulsion_count_Defiance_only
+        Expulsion_count_Other_Reasons
+    ;
+    set
+        EXP1516_raw_sorted(in=ay2016_data_row)
+        EXP1415_raw_sorted(in=ay2015_data_row)
+    ;
+    by
+        County_Code
+        District_Code
+        School_Code
+    ;
+run;
 
 *Created exp_temp dataset to keep the least 
 number of columns and minimal cleaning/transformation needed to address 
@@ -252,3 +298,43 @@ run;
 	
 	
 	
+=======
+* combine 2016-17 EXP and FRPM datasets horizontally to address research questions in data analysis files
+data exp_frpm_analytic_file;
+    retain
+        County_Code
+        District_Code
+        School_Code
+        Charter
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_of_students_expelled
+        Expulsion_Rate
+        NSLP_Provision_status
+        Free_Meal_Count_K12
+        Percent_Eligible_Free_K12
+        FRPM_count_K12
+    ;
+    keep
+        County_Code
+        District_Code
+        School_Code
+        Charter
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_of_students_expelled
+        Expulsion_Rate
+        NSLP_Provision_status
+        Free_Meal_Count_K12
+        Percent_Eligible_Free_K12
+        FRPM_count_K12
+    ;
+    merge
+        EXP1617_raw_sorted
+        FRPM1617_raw_sorted
+    ;
+    by
+        County_Code
+        District_Code
+        School_Code
+    ;
