@@ -172,10 +172,40 @@ run;
 * combine expulsions data vertically, combine composite key values into a primary key
  data exp_analytic_file;
     retain
-        CDS_Code
+        Academic_year
+        County_code
+        District_code
+        School_Code
+        Charter
+        Reporting_Category
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_students_expelled_total
+        Expulsion_Rate
+        Expulsion_count_Violent_Incident_Injury
+        Expulsion_count_Violent_Incident_No_Injury
+        Expulsion_count_Weapons_Possession
+        Expulsion_count_Illicit_Drug_Related
+        Expulsion_count_Defiance_only
+        Expulsion_count_Other_Reasons
     ;
-    length
-        CDS_Code $14.
+    keep
+        Academic_year
+        County_code
+        District_code
+        School_Code
+        Charter
+        Reporting_Category
+        Cumulative_Enrollment
+        Total_Expulsions
+        Unduplicated_count_students_expelled_total
+        Expulsion_Rate
+        Expulsion_count_Violent_Incident_Injury
+        Expulsion_count_Violent_Incident_No_Injury
+        Expulsion_count_Weapons_Possession
+        Expulsion_count_Illicit_Drug_Related
+        Expulsion_count_Defiance_only
+        Expulsion_count_Other_Reasons
     ;
     set
         EXP1516_raw_sorted(in=ay2016_data_row)
@@ -186,22 +216,15 @@ run;
         District_Code
         School_Code
     ;
-    if
-        ay2015_data_row=1
-        and
-        substr(School_Code,1,6) ne "000000"
-    then
-        do;
-            CDS_Code = cats(County_Code,District_Code,School_Code);
-            ;
-            output;
-        end;
 run;
 
 
 * combine 2016-17 EXP and FRPM datasets horizontally to address research questions in data analysis files
 data exp_frpm_analytic_file;
     retain
+        County_Code
+        District_Code
+        School_Code
         Charter
         Cumulative_Enrollment
         Total_Expulsions
@@ -213,6 +236,9 @@ data exp_frpm_analytic_file;
         FRPM_count_K12
     ;
     keep
+        County_Code
+        District_Code
+        School_Code
         Charter
         Cumulative_Enrollment
         Total_Expulsions
@@ -224,9 +250,11 @@ data exp_frpm_analytic_file;
         FRPM_count_K12
     ;
     merge
-        exp_analytic_file
+        EXP1617_raw_sorted
         FRPM1617_raw_sorted
     ;
     by
-        CDS_Code
+        County_Code
+        District_Code
+        School_Code
     ;
