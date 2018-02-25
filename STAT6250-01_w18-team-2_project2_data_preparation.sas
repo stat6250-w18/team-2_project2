@@ -173,3 +173,82 @@ run;
 
 
 * combine data sets horizontally;
+
+*Created exp_temp dataset to keep the least 
+number of columns and minimal cleaning/transformation needed to address 
+research questions in  Q1 by LC.
+;
+
+data 
+	exp_temp;
+	retain 
+	Charter
+	Expulsion_Rate;
+	keep 
+	Charter
+	Expulsion_Rate;
+	set EXP1617_raw_sorted (RENAME = (VAR9=Charter));
+	Expulsion_Rate = input(Expulsion_Rate__Total_, 8.);
+run;
+
+*Created reason_for_exp dataset to keep the least 
+number of columns and minimal cleaning/transformation needed to address 
+research questions in  Q2 by LC.
+;
+
+data
+	reason_for_exp;	
+	retain
+	Violent_Incident_injury
+	Violent_Inciden_no_injury
+	Weapons_Possessi
+	Illicit_Drug_Rel
+	Defiance_only
+	Other_Reasons;
+	keep
+	Violent_Incident_injury
+	Violent_Inciden_no_injury
+	Weapons_Possessi
+	Illicit_Drug_Rel
+	Defiance_only
+	Other_Reasons;
+	set EXP1617_raw_sorted;
+	Violent_Incident_injury = input(Expulsion_Count_Violent_Incident, 8.);
+	Violent_Inciden_no_injury = input(Expulsion_Count_Violent_Inciden1, 8.);
+	Weapons_Possessi = input(Expulsion_Count_Weapons_Possessi, 8.);
+	Illicit_Drug_Rel = input(Expulsion_Count_Illicit_Drug_Rel, 8.);
+	Defiance_only = input(Expulsion_Count_of_Students_Expe, 8.);
+	Other_Reasons = input(Expulsion_Count_Other_Reasons, 8.)
+	;
+run;
+
+*Added total_exp dataset to answer Q3 by LC.
+;
+
+data
+	total_exp;
+	retain
+	School_Name
+	School_Code
+	Expulsions;
+	keep
+	School_Name
+	School_Code
+	Expulsions;
+	set EXP1617_raw_sorted;
+	Expulsions = input(Total_Expulsions, 8.);
+	if cmiss(of School_Name) then delete;
+run;
+
+*Sorted total_exp dataset  by total expulsions for Q3 by LC.
+;
+
+proc sort 
+	data=total_exp
+	out=total_exp
+	;
+	by descending Expulsions;
+run;
+	
+	
+	
