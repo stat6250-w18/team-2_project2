@@ -8,7 +8,7 @@ This file uses the following analytic dataset to address several research
 questions regarding expulsion trends and free or reduced meals at CA public 
 K-12 schools
 
-Dataset Name: (insert dataset name) created in external file
+Dataset Name: exp_analytic_file created in external file
 STAT6250-01_w18-team-2_project2_data_preparation.sas, which is assumed to be
 in the same directory as this file
 
@@ -21,7 +21,7 @@ See included file for dataset properties
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file that generates analytic datasets (All file names)
+* load external file that generates analytic datasets
 %include '.\STAT6250-01_w18-team-2_project2_data_preparation.sas';
 
 
@@ -30,18 +30,19 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 *******************************************************************************;
 
 title1
-'Research Question: What are the top three districts that have experienced the most expulsions from 2015 to 2017?'
+'Research Question: What are the top three districts that have experienced the most expulsions due to violent incidents from 2015 to 2017?'
 ;
 
 title2
-'Rationale: This could help us identify which districts have the most expulsions and consequently consider the appropriate outreach program using datasets EXP1516 and EXP1617.'
+'Rationale: This could help us identify which districts have the most expulsions with vioence and consequently consider the appropriate outreach program using datasets EXP1516 and EXP1617.'
 ;
 
 *
-Note: This compares the column "districts" and "total expulsions" from EXP1516
+Note: This compares the column "districts" and "Expulsion Count Violent Incident Injury" from EXP1516
 to the column of the same name from EXP1617.
 
-Methodology: After combining EXP1516 and EXP1617 during data preparation.
+Methodology: After combining EXP1516 and EXP1617 during data preparation, use 
+proc print to display the first three rows of the sorted dataset
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for percentages
@@ -53,14 +54,29 @@ data or a rolling average of previous years' data as a proxy.
 ;
 
 proc print
-        data=(Dataset name)(obs=3)
+        data=exp_analytic_file_sort(obs=3)
     ;
     id
         district_name
     ;
     var
-        total_expulsion
+        expulsion_count_violent_incident_injury
     ;
+run;
+
+proc freq data=exp_analytic_file order=freq noprint;  /* ORDER= sorts by counts within X */
+by Origin;                               /* X var */
+tables Type / out=FreqOutSorted;         /* Y var */
+run;
+ 
+proc print data=FreqOutSorted; run;
+ 
+title "Top Districts with Expulsion due to Violence Bar Chart";
+proc sgplot data=exp_analytic_file;
+hbarparm category=District response=Expulsion_Percent group=Expulsion_Type 
+              grouporder=data groupdisplay=stack; /* order by counts of 1st bar */
+yaxis discreteorder=data label="District";
+     xaxis grid values=(0 to 100 by 10) label="Percentage of Total with Group";
 run;
 
 title;
@@ -80,11 +96,13 @@ title2
 ;
 
 *
-Note: This compares the column "School name" and "total expulsions from EXP1516
-to the column of the same name from EXP1617.
+Note: This compares the column "School Name" and "Unduplicated Count of 
+Students Expelled Total" from EXP1516 to the column of the same name from 
+EXP1617.
 
-Methodology: Use proc print to display the first five schools with highest 
-expulsion. May need to use prof freq.
+Methodology: After combining EXP1516 and EXP1617 during data preparation,
+Use proc print to display the first five schools with highest 
+expulsion. 
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for percentages
@@ -96,7 +114,7 @@ data or a rolling average of previous years' data as a proxy.
 ;
 
 proc print
-        data=(Dataset name)(obs=5)
+        data=exp_analytic_file_sort(obs=5)
     ;
     id
         school_name
@@ -123,18 +141,32 @@ title2
 ;
 
 *
-Note: This compares the column "total expulsions" from EXP1617 to the column 
-"total reduced and free meals" from FRPM1617.
+Note: This compares the column "Unduplicated Count of Students Expelled 
+Total" from EXP1617 to the column "Percent Eligible FRPM K-12" from FRPM1617.
 
-Methodology: 
+Methodology: After combining expulsion 2016-2017 and FRPM datasets, use 
+composite key to use proc freq.
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for values
 outside of admissable values. This also does not account for students that 
 are in poverty but not in the FRPM1617 data.
 
-Followup Steps: More carefully clean the values of variables so that the
+Follow up Steps: More carefully clean the values of variables so that the
 statistics computed do not include any possible illegal values, and better
 handle missing data, e.g., by using a previous year's data or a rolling average
 of previous years' data as a proxy.
 ;
+
+proc freq 
+	data=exp_analytic_file_sort_frpm  
+	order=freq
+        ;
+	table
+                Percent_Eligible_FRPM_K12*Unduplicated_count_students_expelled_total
+                / norow nocol
+;
+run;
+
+title;
+footnote;
