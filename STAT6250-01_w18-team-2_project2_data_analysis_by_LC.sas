@@ -21,7 +21,7 @@ See included file for dataset properties
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file that generates analytic datasets (All file names)
+* load external file that generates analytic datasets (All file names);
 %include '.\STAT6250-01_w18-team-2_project2_data_preparation.sas';
 
 
@@ -41,12 +41,17 @@ title2
 Note: This compares the column "school type" and "total expulsions" from EXP1516
 to the column of the same name from EXP1617.
 
-Methodology: Use proc freq and compare the numbers of expulsions between both school types.
+Methodology: Use proc means and compare the rate of expulsions between both school types.
 
-Limitations: 
+Limitations: Missing data isn't accounted for.
 
-Followup Steps: 
+Follow-up Steps: Omit all rows that have missing information.
 ;
+proc means
+	data = exp_temp mean;
+	class Charter;
+	var Expulsion_Rate;
+run;
 
 
 *******************************************************************************;
@@ -66,10 +71,15 @@ Note: This compares all columns with reasons for expulsion.
 
 Methodology: Use proc mean
 
-Limitations: 
+Limitations: Not all primary keys are unique.
 
-Followup Steps: 
+Follow-up Steps: Use a composite key.
 ;
+
+proc means
+	data=reason_for_exp
+	mean MAXDEC=2;
+run;
 
 
 *******************************************************************************;
@@ -90,8 +100,11 @@ Note: This compares the column "total expulsions" from EXP1617 to the column
 
 Methodology: Use proc freq
 
-Limitations: 
+Limitations: Missing data isn't accounted for.
 
-Followup Steps: 
+Follow-up Steps: Omit all rows that have missing information.
 ;
 
+proc print
+	data = total_exp(obs=5);
+run;
