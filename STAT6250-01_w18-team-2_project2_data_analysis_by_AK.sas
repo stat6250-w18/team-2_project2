@@ -52,8 +52,12 @@ columns to give the unique expulsion count. However, data has to be analysed to
 check how the reasons are treated for multiple expulsions for same student.
 
 Follow-up Steps:Analyze and clean the data for any redundant expulsion counts.
-
 ;
+proc means
+	data=exp_analytic_file(where=(Aggregate_Level='S')) 
+	mean
+;
+run;
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
@@ -82,8 +86,14 @@ Charter school funding type is not possible with only these datasets.
 
 Followup Steps:Analyse the data to check if any School level aggregates
 have a NULL value for Charter Type.
-
 ;
+
+proc freq 
+	data=exp_analytic_file (where=(Aggregate_Level='S'))  
+	order=freq;
+	tables Charter*Unduplicated_count_students_expelled_total/ norow nocol
+;
+run;
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
@@ -114,8 +124,14 @@ between Reduced Meals program and Expulsions.
 Followup Steps:Analyze and clean the data to verify if all the records in 
 Expulsion and FRPM datasets were mapped. This is to identify if any of 
 these datasets have uncaptured schools.
-
 ;
+
+proc freq 
+	data=exp_frpm_analytic_file (where=(Aggregate_Level='S'))  
+	order=freq;
+	tables Percent_Eligible_Free_K12*Unduplicated_count_students_expelled_total/ norow nocol
+;
+run;
 
 
 
