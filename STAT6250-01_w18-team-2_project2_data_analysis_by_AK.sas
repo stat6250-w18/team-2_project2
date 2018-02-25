@@ -107,7 +107,7 @@ expulsion?'
 title2
 'Rationale: This can help in identifying if student benefits, encourage 
 students to grow up with good beahivours controlling the expulsion 
-scenarios.
+scenarios.'
 ;
 
 *
@@ -115,14 +115,14 @@ Note: Compare the expulsion data with student free meal eligibility datasets
 and identify a pattern.
 
 Methodology: Combine the 2016-17 expulsion and FRPM datasets using the country
-code,district code and school code. 
+code,district code and school code.
 
 Limitations:These two datasets may not have accounted for all Schools Data
 and hence this research will not give a complete picture of the relation
 between Reduced Meals program and Expulsions.
 
 Followup Steps:Analyze and clean the data to verify if all the records in 
-Expulsion and FRPM datasets were mapped. This is to identify if any of 
+Expulsion and FRPM datasets were mapped.This is to identify if any of 
 these datasets have uncaptured schools.
 ;
 
