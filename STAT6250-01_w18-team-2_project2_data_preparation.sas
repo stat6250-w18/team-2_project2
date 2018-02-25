@@ -6,9 +6,11 @@
 *
 [Dataset 1 Name] EXP1516
 
-[Dataset Description] Expulsion data for 2015-2016 (July 1 – June 30) school year in California
+[Dataset Description] Expulsion data for 2015-2016 (July 1 – June 30) school 
+year in California
 
-[Experimental Units] California public K-12 schools active in 2016-2017 (July 1 – June 30) school year in California
+[Experimental Units] California public K-12 schools active in 2016-2017 
+(July 1 – June 30) school year in California
 
 [Number of Observations] 178878
 
@@ -18,15 +20,18 @@
 
 [Data Dictionary] https://www.cde.ca.gov/ds/sd/sd/fsed.asp
 
-[Unique ID Schema] The unique id is the column “School Code” 
+[Unique ID Schema] The columns "County Code", "District Code", and "School
+Code" form a composite key CDS_CODE
 
 --
 
 [Dataset 2 Name] EXP1617
 
-[Dataset Description] Expulsion data for 2016-2017 (July 1 – June 30) school year in California
+[Dataset Description] Expulsion data for 2016-2017 (July 1 – June 30) 
+school year in California
 
-[Experimental Units] California public K-12 schools active in 2016-2017 (July 1 – June 30) school year in California
+[Experimental Units] California public K-12 schools active in 2016-2017 
+(July 1 – June 30) school year in California
 
 [Number of Observations] 178412
 
@@ -36,15 +41,18 @@
 
 [Data Dictionary] https://www.cde.ca.gov/ds/sd/sd/fsed.asp
 
-[Unique ID Schema] The unique id is the column “School Code”
+[Unique ID Schema] The columns "County Code", "District Code", and "School
+Code" form a composite key CDS_CODE
 
 --
 
 [Dataset 3 Name] FRPM1617
 
-[Dataset Description] Free or Reduced Price Meals (FRPM) student eligibility data for 2016-2017 (July 1 – June 30) school year in California
+[Dataset Description] Free or Reduced Price Meals (FRPM) student 
+eligibility data for 2016-2017 (July 1 – June 30) school year in California
 
-[Experimental Units] California public K-12 schools active in 2016-2017 (July 1 – June 30) school year in California
+[Experimental Units] California public K-12 schools active in 2016-2017
+(July 1 – June 30) school year in California
 
 [Number of Observations] 10478
 
@@ -54,14 +62,14 @@
 
 [Data Dictionary] https://www.cde.ca.gov/ds/sd/sd/fsspfrpm.asp
 
-[Unique ID Schema] The unique id is the column “School Code”
+[Unique ID Schema] The columns "County Code", "District Code", and "School
+Code" form a composite key CDS_CODE
 ;
 
 
 * environmental setup;
 
 * create output formats;
-
 
 * setup environmental parameters;
 %let inputDataset1URL =
@@ -260,7 +268,8 @@ data exp_frpm_analytic_file;
         District_Code
         School_Code
     ;
-    
+
+
 * Created exp_temp dataset to keep the least 
 number of columns and minimal cleaning/transformation needed to address 
 research questions in  Q1 by LC.
@@ -277,6 +286,7 @@ data
 	set EXP1617_raw_sorted (RENAME = (VAR9=Charter));
 	Expulsion_Rate = input(Expulsion_Rate__Total_, 8.);
 run;
+
 
 * Created reason_for_exp dataset to keep the least 
 number of columns and minimal cleaning/transformation needed to address 
@@ -309,6 +319,7 @@ data
 	;
 run;
 
+
 * Added total_exp dataset to answer Q3 by LC.
 ;
 
@@ -326,6 +337,7 @@ data
 	Expulsions = input(Total_Expulsions, 8.);
 	if cmiss(of School_Name) then delete;
 run;
+
 
 * Sorted total_exp dataset  by total expulsions for Q3 by LC.
 ;
