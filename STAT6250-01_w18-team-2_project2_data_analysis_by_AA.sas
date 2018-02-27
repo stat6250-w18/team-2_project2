@@ -38,8 +38,8 @@ title2
 ;
 
 *
-Note: This compares the column "districts" and "Expulsion Count Violent Incident Injury" from EXP1516
-to the column of the same name from EXP1617.
+Note: This compares the column "districts" and "Expulsion Count Violent 
+Incident Injury" from EXP1516 to the column of the same name from EXP1617.
 
 Methodology: After combining EXP1516 and EXP1617 during data preparation, use 
 proc print to display the first three rows of the sorted dataset
