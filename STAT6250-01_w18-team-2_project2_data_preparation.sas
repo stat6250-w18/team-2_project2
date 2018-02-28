@@ -177,7 +177,10 @@ proc sort
 run;
 
 
-* combine expulsions data vertically, combine composite key values into a primary key
+* combine expulsions data vertically, combine composite key values into 
+a primary key
+;
+
  data exp_analytic_file;
     retain
         Academic_year
@@ -229,7 +232,10 @@ run;
 run;
 
 
-* combine 2016-17 EXP and FRPM datasets horizontally to address research questions in data analysis files
+* combine 2016-17 EXP and FRPM datasets horizontally to address research 
+questions in data analysis files
+;
+
 data exp_frpm_analytic_file;
     retain
         County_Code
