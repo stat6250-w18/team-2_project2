@@ -221,8 +221,8 @@ a primary key
         Expulsion_count_Other_Reasons
     ;
     set
-        EXP1516_raw_sorted(in=ay2016_data_row)
-        EXP1415_raw_sorted(in=ay2015_data_row)
+        EXP1516_raw_sorted(in=ay2015_data_row)
+        EXP1617_raw_sorted(in=ay2016_data_row)
     ;
     by
         County_Code
