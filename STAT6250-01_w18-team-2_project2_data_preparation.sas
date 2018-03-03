@@ -177,7 +177,10 @@ proc sort
 run;
 
 
-* combine expulsions data vertically, combine composite key values into a primary key
+* combine expulsions data vertically, combine composite key values into 
+a primary key
+;
+
  data exp_analytic_file;
     retain
         Academic_year
@@ -229,7 +232,10 @@ run;
 run;
 
 
-* combine 2016-17 EXP and FRPM datasets horizontally to address research questions in data analysis files
+* combine 2016-17 EXP and FRPM datasets horizontally to address research 
+questions in data analysis files
+;
+
 data exp_frpm_analytic_file;
     retain
         County_Code
@@ -284,7 +290,7 @@ data
 	Charter
 	Expulsion_Rate;
 	set EXP1617_raw_sorted (RENAME = (VAR9=Charter));
-	Expulsion_Rate = input(Expulsion_Rate__Total_, 8.);
+	Expulsion_Rate = input(Expulsion_Rate__Total_, ??8.);
 run;
 
 
@@ -310,17 +316,18 @@ data
 	Defiance_only
 	Other_Reasons;
 	set EXP1617_raw_sorted;
-	Violent_Incident_injury = input(Expulsion_Count_Violent_Incident, 8.);
-	Violent_Inciden_no_injury = input(Expulsion_Count_Violent_Inciden1, 8.);
-	Weapons_Possessi = input(Expulsion_Count_Weapons_Possessi, 8.);
-	Illicit_Drug_Rel = input(Expulsion_Count_Illicit_Drug_Rel, 8.);
-	Defiance_only = input(Expulsion_Count_of_Students_Expe, 8.);
-	Other_Reasons = input(Expulsion_Count_Other_Reasons, 8.)
+	Violent_Incident_injury = input(Expulsion_Count_Violent_Incident, ??8.);
+	Violent_Inciden_no_injury = input(Expulsion_Count_Violent_Inciden1, ??8.);
+	Weapons_Possessi = input(Expulsion_Count_Weapons_Possessi, ??8.);
+	Illicit_Drug_Rel = input(Expulsion_Count_Illicit_Drug_Rel, ??8.);
+	Defiance_only = input(Expulsion_Count_of_Students_Expe, ??8.);
+	Other_Reasons = input(Expulsion_Count_Other_Reasons, ??8.)
 	;
 run;
 
 
-* Added total_exp dataset to answer Q3 by LC.
+* Added total_exp dataset to answer Q3 by LC. 
+Deleted rows with missing data.
 ;
 
 data
@@ -334,7 +341,7 @@ data
 	School_Code
 	Expulsions;
 	set EXP1617_raw_sorted;
-	Expulsions = input(Total_Expulsions, 8.);
+	Expulsions = input(Total_Expulsions, ??8.);
 	if cmiss(of School_Name) then delete;
 run;
 
@@ -348,3 +355,4 @@ proc sort
 	;
 	by descending Expulsions;
 run;
+
