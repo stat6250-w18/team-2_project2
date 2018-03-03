@@ -55,7 +55,7 @@ a proxy.
 ;
 
 proc print
-        data=exp_analytic_file_sort(obs=3)
+        data=EXP_raw_sorted(obs=3)
     ;
     id
         district_name
@@ -63,21 +63,6 @@ proc print
     var
         expulsion_count_violent_incident_injury
     ;
-run;
-
-proc freq data=exp_analytic_file order=freq noprint;  /* ORDER= sorts by counts within X */
-by Origin;                               /* X var */
-tables Type / out=FreqOutSorted;         /* Y var */
-run;
- 
-proc print data=FreqOutSorted; run;
- 
-title "Top Districts with Expulsion due to Violence Bar Chart";
-proc sgplot data=exp_analytic_file;
-hbarparm category=District response=Expulsion_Percent group=Expulsion_Type 
-              grouporder=data groupdisplay=stack; /* order by counts of 1st bar */
-yaxis discreteorder=data label="District";
-     xaxis grid values=(0 to 100 by 10) label="Percentage of Total with Group";
 run;
 
 title;
@@ -116,13 +101,13 @@ a proxy.
 ;
 
 proc print
-        data=exp_analytic_file_sort(obs=5)
+        data=EXP_raw_sorted(obs=5)
     ;
     id
         school_name
     ;
     var
-        total_expulsion
+        total_expulsions
     ;
 run;
 
