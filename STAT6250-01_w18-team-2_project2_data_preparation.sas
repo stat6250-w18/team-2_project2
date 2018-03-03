@@ -155,7 +155,7 @@ proc sort
         nodupkey
         data=EXP1617_raw
         dupout=EXP1617_raw_dups
-        out=EXP1617_raw_sorted
+        out=EXP1617_raw_sorted (RENAME = (VAR22=Errate_Flag))
     ;
     by
         County_Code
@@ -241,15 +241,13 @@ data exp_frpm_analytic_file;
         County_Code
         District_Code
         School_Code
-        Charter
+        Charter_School
         Cumulative_Enrollment
         Total_Expulsions
-        Unduplicated_count_of_students_expelled
+        Unduplicated_Total_Expulsions
         Expulsion_Rate
-        NSLP_Provision_status
-        Free_Meal_Count_K12
-        Percent_Eligible_Free_K12
-        FRPM_count_K12
+        NSLP__Provision__status
+	Free_Meal_Count
     ;
     keep
         County_Code
@@ -258,22 +256,21 @@ data exp_frpm_analytic_file;
         Charter
         Cumulative_Enrollment
         Total_Expulsions
-        Unduplicated_count_of_students_expelled
+        Unduplicated_Total_Expulsions
         Expulsion_Rate
-        NSLP_Provision_status
-        Free_Meal_Count_K12
-        Percent_Eligible_Free_K12
-        FRPM_count_K12
+        NSLP__Provision__status
+	Free_Meal_Count
     ;
     merge
         EXP1617_raw_sorted
-        FRPM1617_raw_sorted
+        FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
     ;
     by
         County_Code
         District_Code
         School_Code
     ;
+run;
 
 
 * Created exp_temp dataset to keep the least 
