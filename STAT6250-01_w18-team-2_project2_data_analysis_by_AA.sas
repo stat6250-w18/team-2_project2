@@ -38,19 +38,20 @@ title2
 ;
 
 *
-Note: This compares the column "districts" and "Expulsion Count Violent Incident Injury" from EXP1516
-to the column of the same name from EXP1617.
+Note: This compares the column "districts" and "Expulsion Count Violent 
+Incident Injury" from EXP1516 to the column of the same name from EXP1617.
 
-Methodology: After combining EXP1516 and EXP1617 during data preparation, use 
-proc print to display the first three rows of the sorted dataset
+Methodology: After combining EXP1516 and EXP1617 during data preparation, 
+use proc print to display the first three rows of the sorted dataset
 
-Limitations: This methodology does not account for schools with missing data,
-nor does it attempt to validate data in any way, like filtering for percentages
-between 0 and 1.
+Limitations: This methodology does not account for schools with missing 
+data, nor does it attempt to validate data in any way, like filtering for
+percentages between 0 and 1.
 
-Followup Steps: More carefully clean values in order to filter out any possible
-illegal values, and better handle missing data, e.g., by using a previous year's
-data or a rolling average of previous years' data as a proxy.
+Followup Steps: More carefully clean values in order to filter out any 
+possible illegal values, and better handle missing data, e.g., by using 
+a previous year's data or a rolling average of previous years' data as 
+a proxy.
 ;
 
 proc print
@@ -104,13 +105,14 @@ Methodology: After combining EXP1516 and EXP1617 during data preparation,
 Use proc print to display the first five schools with highest 
 expulsion. 
 
-Limitations: This methodology does not account for schools with missing data,
-nor does it attempt to validate data in any way, like filtering for percentages
-between 0 and 1.
+Limitations: This methodology does not account for schools with missing 
+data, nor does it attempt to validate data in any way, like filtering for
+percentages between 0 and 1.
 
-Followup Steps: More carefully clean values in order to filter out any possible
-illegal values, and better handle missing data, e.g., by using a previous year's
-data or a rolling average of previous years' data as a proxy.
+Followup Steps: More carefully clean values in order to filter out any 
+possible illegal values, and better handle missing data, e.g., by using 
+a previous year's data or a rolling average of previous years' data as 
+a proxy.
 ;
 
 proc print
@@ -154,8 +156,8 @@ are in poverty but not in the FRPM1617 data.
 
 Follow up Steps: More carefully clean the values of variables so that the
 statistics computed do not include any possible illegal values, and better
-handle missing data, e.g., by using a previous year's data or a rolling average
-of previous years' data as a proxy.
+handle missing data, e.g., by using a previous year's data or a rolling 
+average of previous years' data as a proxy.
 ;
 
 proc freq 
