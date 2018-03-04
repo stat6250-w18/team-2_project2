@@ -8,7 +8,7 @@ This file uses the following analytic dataset to address several research
 questions regarding expulsion trends and free or reduced meals at CA public 
 K-12 schools
 
-Dataset Name: exp_analytic_file created in external file
+Dataset Name: EXP_ANALYTIC_FILE created in external file
 STAT6250-01_w18-team-2_project2_data_preparation.sas, which is assumed to be
 in the same directory as this file
 
@@ -21,7 +21,8 @@ See included file for dataset properties
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file that generates analytic datasets
+* load external file that generates analytic datasets EXP1617_RAW_SORTED, 
+  EXP1516_RAW_SORTED, FRM1617_RAW_SORTED
 %include '.\STAT6250-01_w18-team-2_project2_data_preparation.sas';
 
 
@@ -37,9 +38,21 @@ title2
 'Rationale: This could help us identify which districts have the most expulsions with vioence and consequently consider the appropriate outreach program using datasets EXP1516 and EXP1617.'
 ;
 
+footnote1
+"The top two districts are missing the codes and consequently cannot be identified."
+;
+
+footnote2
+"The third district has zero expulsions."
+;
+
+footnote3
+"Further analysis and data cleaning needs to be completed to properly answer the research question."
+;
+
 *
-Note: This compares the column "districts" and "Expulsion Count Violent 
-Incident Injury" from EXP1516 to the column of the same name from EXP1617.
+Note: This compares the column "district code" and "Expulsion Violent 
+Injury" from EXP1516 to the column of the same name from EXP1617.
 
 Methodology: After combining EXP1516 and EXP1617 during data preparation, 
 use proc print to display the first three rows of the sorted dataset
@@ -81,10 +94,21 @@ title2
 'Rationale: This would help us continue on from our previous research question and identify exactly which schools have the highest expulsion using datasets Exp1516 and Exp1617.'
 ;
 
+footnote1
+"The top three schools are missing school code and cannot be identified"
+;
+
+footnote2
+"School code 112607 is listed twice, once with missing data and another with zero."
+;
+
+footnote3
+"Further analysis and data cleaning needs to be completed to answer the research questions."
+;
+
 *
-Note: This compares the column "School Name" and "Unduplicated Count of 
-Students Expelled Total" from EXP1516 to the column of the same name from 
-EXP1617.
+Note: This compares the column "School Code" and "Total Expulsion"
+from EXP1516 to the column of the same name from EXP1617.
 
 Methodology: After combining EXP1516 and EXP1617 during data preparation,
 Use proc print to display the first five schools with highest 
@@ -127,9 +151,17 @@ title2
 "Rationale: By using dataset EXP1617 and FRPM1617 we can identify if there is a relationship between the two"
 ;
 
+footnote1
+"There is no relationship between meal count and expulsions."
+;
+
+footnote2
+"Further analysis and better visual representation needs to be completed to understand the relationship between the two."
+;
+
 *
-Note: This compares the column "Unduplicated Count of Students Expelled 
-Total" from EXP1617 to the column "Percent Eligible FRPM K-12" from FRPM1617.
+Note: This compares the column "Unduplicated Total Expulsion" 
+from EXP1617 to the column "Free Meal Count" from FRPM1617.
 
 Methodology: After combining expulsion 2016-2017 and FRPM datasets, use 
 composite key to use proc freq.
@@ -148,11 +180,10 @@ average of previous years' data as a proxy.
 proc freq 
 	data=EXP_FRPM_ANALYTIC_FILE 
 	order=freq
-        ;
-	table
-                Free_Meal_Count*Unduplicated_Total_Expulsion
-                / norow nocol
-;
+    ;
+   	table Free_Meal_Count*Unduplicated_Total_Expulsion
+    	/ norow nocol
+    ;
 run;
 
 title;
