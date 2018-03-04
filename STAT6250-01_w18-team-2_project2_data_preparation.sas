@@ -222,7 +222,7 @@ data exp_analytic_file;
     ;
     set
         EXP1617_raw_sorted(RENAME = (VAR9=Charter_School))
-	EXP1516_raw_sorted(RENAME = (VAR9=Charter_School))
+        EXP1516_raw_sorted(RENAME = (VAR9=Charter_School))
     ;
     by
         County_Code
@@ -300,7 +300,7 @@ research questions in  Q2 by LC.
 
 data reason_for_exp;	
     retain
-	Violent_Incident_injury
+        Violent_Incident_injury
 	Violent_Inciden_no_injury
 	Weapons_Possessi
 	Illicit_Drug_Rel
@@ -355,9 +355,9 @@ run;
 
 proc sort 
 	nodupkey
-	data=total_exp
-	out=total_exp
+        data=total_exp
+        out=total_exp
 	;
-	by descending Expulsions;
+        by descending Expulsions;
 run;
 
