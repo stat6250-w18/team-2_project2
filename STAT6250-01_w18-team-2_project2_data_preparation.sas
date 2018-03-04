@@ -333,7 +333,7 @@ Deleted rows with missing data.
 
 data total_exp;
     retain
-	School_Name
+        School_Name
 	School_Code
 	Expulsions
 	County_Name
