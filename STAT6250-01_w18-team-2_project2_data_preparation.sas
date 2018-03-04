@@ -221,8 +221,8 @@ a primary key
         Expulsion_Other_Reasons
     ;
     set
-        EXP1516_raw_sorted(RENAME = (VAR9=Charter_School))
-	EXP1617_raw_sorted(RENAME = (VAR9=Charter_School))
+		EXP1617_raw_sorted(RENAME = (VAR9=Charter_School))
+		EXP1516_raw_sorted(RENAME = (VAR9=Charter_School))
     ;
     by
         County_Code
@@ -262,8 +262,8 @@ data exp_frpm_analytic_file;
 		Free_Meal_Count
     ;
     merge
+		FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
         EXP1617_raw_sorted(RENAME=(Var9=Charter))
-        FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
     ;
     by
         County_Code
