@@ -37,6 +37,14 @@ title2
 'Rationale: This would help identify which type of school has higher expulsion rates and could help policy makers better allocate funds.'
 ;
 
+footnote1
+"Based on this data charter schools have a lower expulsion rate than those that are not charter schools."
+;
+
+footnote2
+"This may be because charter schools have policies that differ from public schools regarding expulsions"
+;
+
 *
 Note: This compares the column "school type" and "total expulsions" from EXP1516
 to the column of the same name from EXP1617.
@@ -67,6 +75,14 @@ title2
 'Rationale: This would help identify which behaviors are most problematic and could help school administration and counselors target more at risk students.'
 ;
 
+footnote1
+""
+;
+
+footnote2
+""
+;
+
 *
 Note: This compares all columns with reasons for expulsion.
 
@@ -93,6 +109,14 @@ title1
 
 title2
 'Rationale: This would allow policy makers to target specific schools in trying to alleviate expulsion rates.'
+;
+
+footnote1
+"Las Plumas High School has the highest number of expulsions in the state of California"
+;
+
+footnote2
+"Las Plumas High School is located in Oroville and has a student body of about 1,100"
 ;
 
 *
