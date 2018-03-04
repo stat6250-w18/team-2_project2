@@ -243,11 +243,11 @@ data exp_frpm_analytic_file;
         School_Code
         Charter_School
         Cumulative_Enrollment
-        Total_Expulsions
-        Unduplicated_Total_Expulsions
+        Total_Expulsion
+        Unduplicated_Total_Expulsion
         Expulsion_Rate
         NSLP__Provision__status
-	Free_Meal_Count
+		Free_Meal_Count
     ;
     keep
         County_Code
@@ -255,14 +255,14 @@ data exp_frpm_analytic_file;
         School_Code
         Charter
         Cumulative_Enrollment
-        Total_Expulsions
-        Unduplicated_Total_Expulsions
+        Total_Expulsion
+        Unduplicated_Total_Expulsion
         Expulsion_Rate
         NSLP__Provision__status
-	Free_Meal_Count
+		Free_Meal_Count
     ;
     merge
-        EXP1617_raw_sorted
+        EXP1617_raw_sorted(RENAME=(Var9=Charter))
         FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
     ;
     by
@@ -282,14 +282,14 @@ data
 	exp_temp;
 	retain 
 	Charter
-	Expulsion_Rate;
+	exprate;
 	keep 
 	Charter
-	Expulsion_Rate;
-	set EXP1617_raw_sorted (RENAME = (VAR9=Charter));
-	Expulsion_Rate = input(Expulsion_Rate__Total_, ??8.);
+	exprate;
+	set EXP1617_raw (RENAME=(Var9=Charter))
+	;
+	exprate = input(Expulsion_Rate, ??8.);
 run;
-
 
 * Created reason_for_exp dataset to keep the least 
 number of columns and minimal cleaning/transformation needed to address 
@@ -312,13 +312,13 @@ data
 	Illicit_Drug_Rel
 	Defiance_only
 	Other_Reasons;
-	set EXP1617_raw_sorted;
-	Violent_Incident_injury = input(Expulsion_Count_Violent_Incident, ??8.);
-	Violent_Inciden_no_injury = input(Expulsion_Count_Violent_Inciden1, ??8.);
-	Weapons_Possessi = input(Expulsion_Count_Weapons_Possessi, ??8.);
-	Illicit_Drug_Rel = input(Expulsion_Count_Illicit_Drug_Rel, ??8.);
-	Defiance_only = input(Expulsion_Count_of_Students_Expe, ??8.);
-	Other_Reasons = input(Expulsion_Count_Other_Reasons, ??8.)
+	set EXP1617_raw;
+	Violent_Incident_injury = input(Expulsion_Violent_Injury, ??8.);
+	Violent_Inciden_no_injury = input(Expulsion_Violent_No_Injury, ??8.);
+	Weapons_Possessi = input(Expulsion_Weapons, ??8.);
+	Illicit_Drug_Rel = input(Expulsion_Drug_Related, ??8.);
+	Defiance_only = input(Expulsion_Defiance, ??8.);
+	Other_Reasons = input(Expulsion_Other_Reasons, ??8.)
 	;
 run;
 
@@ -332,21 +332,25 @@ data
 	retain
 	School_Name
 	School_Code
-	Expulsions;
+	Expulsions
+	County_Name
+	;
 	keep
 	School_Name
 	School_Code
-	Expulsions;
-	set EXP1617_raw_sorted;
-	Expulsions = input(Total_Expulsions, ??8.);
+	Expulsions
+	County_Name
+	;
+	set EXP1617_raw;
+	Expulsions = input(Total_Expulsion, ??8.);
 	if cmiss(of School_Name) then delete;
 run;
-
 
 * Sorted total_exp dataset  by total expulsions for Q3 by LC.
 ;
 
 proc sort 
+	nodupkey
 	data=total_exp
 	out=total_exp
 	;
