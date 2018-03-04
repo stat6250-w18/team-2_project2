@@ -73,7 +73,7 @@ Code" form a composite key CDS_CODE
 
 * setup environmental parameters;
 %let inputDataset1URL =
-https://github.com/stat6250/team-2_project2/blob/master/data/EXP1516.xls?raw=true
+https://github.com/stat6250/team-2_project2/blob/master/data/exp1516_Upd.xls?raw=true
 ;
 %let inputDataset1Type = XLS;
 %let inputDataset1DSN = EXP1516_raw;
@@ -85,7 +85,7 @@ https://github.com/stat6250/team-2_project2/blob/master/data/EXP1617.xls?raw=tru
 %let inputDataset2DSN = EXP1617_raw;
 
 %let inputDataset3URL =
-https://github.com/stat6250/team-2_project2/blob/master/data/FRM1617.xls?raw=true
+https://github.com/stat6250/team-2_project2/blob/master/data/FRM1617_Upd.xls?raw=true
 ;
 %let inputDataset3Type = XLS;
 %let inputDataset3DSN = FRM1617_raw;
@@ -155,7 +155,7 @@ proc sort
         nodupkey
         data=EXP1617_raw
         dupout=EXP1617_raw_dups
-        out=EXP1617_raw_sorted
+        out=EXP1617_raw_sorted (RENAME = (VAR22=Errate_Flag))
     ;
     by
         County_Code
@@ -188,41 +188,41 @@ a primary key
         County_code
         District_code
         School_Code
-        Charter
+        Charter_School
         Reporting_Category
         Cumulative_Enrollment
         Total_Expulsions
-        Unduplicated_count_students_expelled_total
+        Unduplicated_Total_Expulsion
         Expulsion_Rate
-        Expulsion_count_Violent_Incident_Injury
-        Expulsion_count_Violent_Incident_No_Injury
-        Expulsion_count_Weapons_Possession
-        Expulsion_count_Illicit_Drug_Related
-        Expulsion_count_Defiance_only
-        Expulsion_count_Other_Reasons
+        Expulsion_Violent_Injury
+        Expulsion_Violent_No_Injury
+        Expulsion_Weapons
+        Expulsion_Drug_Related
+        Expulsion_Defiance
+        Expulsion_Other_Reasons
     ;
     keep
         Academic_year
-        Aggregate_Level
+        Aggregate_level
         County_code
         District_code
         School_Code
-        Charter
+        Charter_School
         Reporting_Category
         Cumulative_Enrollment
         Total_Expulsions
-        Unduplicated_count_students_expelled_total
+        Unduplicated_Total_Expulsion
         Expulsion_Rate
-        Expulsion_count_Violent_Incident_Injury
-        Expulsion_count_Violent_Incident_No_Injury
-        Expulsion_count_Weapons_Possession
-        Expulsion_count_Illicit_Drug_Related
-        Expulsion_count_Defiance_only
-        Expulsion_count_Other_Reasons
+        Expulsion_Violent_Injury
+        Expulsion_Violent_No_Injury
+        Expulsion_Weapons
+        Expulsion_Drug_Related
+        Expulsion_Defiance
+        Expulsion_Other_Reasons
     ;
     set
-        EXP1516_raw_sorted(in=ay2015_data_row)
-        EXP1617_raw_sorted(in=ay2016_data_row)
+        EXP1516_raw_sorted(RENAME = (VAR9=Charter_School))
+	EXP1617_raw_sorted(RENAME = (VAR9=Charter_School))
     ;
     by
         County_Code
@@ -241,15 +241,13 @@ data exp_frpm_analytic_file;
         County_Code
         District_Code
         School_Code
-        Charter
+        Charter_School
         Cumulative_Enrollment
         Total_Expulsions
-        Unduplicated_count_of_students_expelled
+        Unduplicated_Total_Expulsions
         Expulsion_Rate
-        NSLP_Provision_status
-        Free_Meal_Count_K12
-        Percent_Eligible_Free_K12
-        FRPM_count_K12
+        NSLP__Provision__status
+	Free_Meal_Count
     ;
     keep
         County_Code
@@ -258,22 +256,21 @@ data exp_frpm_analytic_file;
         Charter
         Cumulative_Enrollment
         Total_Expulsions
-        Unduplicated_count_of_students_expelled
+        Unduplicated_Total_Expulsions
         Expulsion_Rate
-        NSLP_Provision_status
-        Free_Meal_Count_K12
-        Percent_Eligible_Free_K12
-        FRPM_count_K12
+        NSLP__Provision__status
+	Free_Meal_Count
     ;
     merge
         EXP1617_raw_sorted
-        FRPM1617_raw_sorted
+        FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
     ;
     by
         County_Code
         District_Code
         School_Code
     ;
+run;
 
 
 * Created exp_temp dataset to keep the least 
