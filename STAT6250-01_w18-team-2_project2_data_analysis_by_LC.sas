@@ -76,12 +76,9 @@ title2
 ;
 
 footnote1
-""
+"Based on the output above, illicit drug use was the most common cause of expulsion."
 ;
 
-footnote2
-""
-;
 
 *
 Note: This compares all columns with reasons for expulsion.
