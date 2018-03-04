@@ -30,7 +30,7 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 *******************************************************************************;
 
 title1
-'Research Question: What are the top three districts that have experienced the most expulsions due to violent incidents from 2015 to 2017?'
+'Research Question: What are the top three districts that have experienced the most expulsions due to violent incidents with injury from 2015 to 2017?'
 ;
 
 title2
@@ -55,13 +55,13 @@ a proxy.
 ;
 
 proc print
-        data=EXP_raw_sorted(obs=3)
+        data=EXP_ANALYTIC_FILE(obs=3)
     ;
     id
-        district_name
+        district_code
     ;
     var
-        expulsion_count_violent_incident_injury
+        expulsion_violent_injury
     ;
 run;
 
@@ -101,10 +101,10 @@ a proxy.
 ;
 
 proc print
-        data=EXP_raw_sorted(obs=5)
+        data=EXP_ANALYTIC_FILE(obs=5)
     ;
     id
-        school_name
+        school_code
     ;
     var
         total_expulsions
@@ -146,11 +146,11 @@ average of previous years' data as a proxy.
 ;
 
 proc freq 
-	data=exp_analytic_file_sort_frpm  
+	data=EXP_FRPM_ANALYTIC_FILE 
 	order=freq
         ;
 	table
-                Percent_Eligible_FRPM_K12*Unduplicated_count_students_expelled_total
+                Free_Meal_Count*Unduplicated_Total_Expulsion
                 / norow nocol
 ;
 run;
