@@ -243,8 +243,8 @@ data exp_frpm_analytic_file;
         School_Code
         Charter_School
         Cumulative_Enrollment
-        Total_Expulsions
-        Unduplicated_Total_Expulsions
+        Total_Expulsion
+        Unduplicated_Total_Expulsion
         Expulsion_Rate
         NSLP__Provision__status
 		Free_Meal_Count
@@ -255,14 +255,14 @@ data exp_frpm_analytic_file;
         School_Code
         Charter
         Cumulative_Enrollment
-        Total_Expulsions
-        Unduplicated_Total_Expulsions
+        Total_Expulsion
+        Unduplicated_Total_Expulsion
         Expulsion_Rate
         NSLP__Provision__status
-	Free_Meal_Count
+		Free_Meal_Count
     ;
     merge
-        EXP1617_raw_sorted
+        EXP1617_raw_sorted(RENAME=(Var9=Charter))
         FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
     ;
     by
