@@ -181,7 +181,7 @@ run;
 a primary key
 ;
 
- data exp_analytic_file;
+data exp_analytic_file;
     retain
         Academic_year
         Aggregate_level
@@ -221,8 +221,8 @@ a primary key
         Expulsion_Other_Reasons
     ;
     set
-		EXP1617_raw_sorted(RENAME = (VAR9=Charter_School))
-		EXP1516_raw_sorted(RENAME = (VAR9=Charter_School))
+        EXP1617_raw_sorted(RENAME = (VAR9=Charter_School))
+	EXP1516_raw_sorted(RENAME = (VAR9=Charter_School))
     ;
     by
         County_Code
@@ -247,7 +247,7 @@ data exp_frpm_analytic_file;
         Unduplicated_Total_Expulsion
         Expulsion_Rate
         NSLP__Provision__status
-		Free_Meal_Count
+	Free_Meal_Count
     ;
     keep
         County_Code
@@ -259,10 +259,10 @@ data exp_frpm_analytic_file;
         Unduplicated_Total_Expulsion
         Expulsion_Rate
         NSLP__Provision__status
-		Free_Meal_Count
+	Free_Meal_Count
     ;
     merge
-		FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
+        FRM1617_raw_sorted(RENAME = (VAR19=Free_Meal_Count))
         EXP1617_raw_sorted(RENAME=(Var9=Charter))
     ;
     by
@@ -278,17 +278,19 @@ number of columns and minimal cleaning/transformation needed to address
 research questions in  Q1 by LC.
 ;
 
-data 
-	exp_temp;
-	retain 
-	Charter
-	exprate;
-	keep 
-	Charter
-	exprate;
-	set EXP1617_raw (RENAME=(Var9=Charter))
-	;
-	exprate = input(Expulsion_Rate, ??8.);
+data exp_temp;
+    retain 
+        Charter
+        exprate
+    ;
+    keep 
+        Charter
+	exprate
+    ;
+    set 
+        EXP1617_raw (RENAME=(Var9=Charter))
+    ;
+    exprate = input(Expulsion_Rate, ??8.);
 run;
 
 * Created reason_for_exp dataset to keep the least 
@@ -296,9 +298,8 @@ number of columns and minimal cleaning/transformation needed to address
 research questions in  Q2 by LC.
 ;
 
-data
-	reason_for_exp;	
-	retain
+data reason_for_exp;	
+    retain
 	Violent_Incident_injury
 	Violent_Inciden_no_injury
 	Weapons_Possessi
@@ -319,7 +320,7 @@ data
 	Illicit_Drug_Rel = input(Expulsion_Drug_Related, ??8.);
 	Defiance_only = input(Expulsion_Defiance, ??8.);
 	Other_Reasons = input(Expulsion_Other_Reasons, ??8.)
-	;
+    ;
 run;
 
 
@@ -327,23 +328,23 @@ run;
 Deleted rows with missing data.
 ;
 
-data
-	total_exp;
-	retain
+data total_exp;
+    retain
 	School_Name
 	School_Code
 	Expulsions
 	County_Name
 	;
-	keep
+    keep
 	School_Name
 	School_Code
 	Expulsions
 	County_Name
 	;
-	set EXP1617_raw;
-	Expulsions = input(Total_Expulsion, ??8.);
-	if cmiss(of School_Name) then delete;
+    set 
+        EXP1617_raw;
+    Expulsions = input(Total_Expulsion, ??8.);
+    if cmiss(of School_Name) then delete;
 run;
 
 * Sorted total_exp dataset  by total expulsions for Q3 by LC.
