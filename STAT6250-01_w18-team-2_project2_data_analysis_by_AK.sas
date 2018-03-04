@@ -35,8 +35,15 @@ title1
 ;
 
 title2
-'Rationale:This would help in focusing more on those factors and help in 
-overcoming expulsion.'
+'Rationale:This would help in focusing more on those factors and help in overcoming expulsion.'
+;
+
+footnote1
+"Initial analysis done for Expulsion due to Violent Injuries which is not a significant contributor for Expulsions."
+;
+
+footnote2
+"Further analysis should be done for all other factors."
 ;
 
 *
@@ -53,6 +60,7 @@ check how the reasons are treated for multiple expulsions for same student.
 
 Follow-up Steps:Analyze and clean the data for any redundant expulsion counts.
 ;
+
 proc freq
 	data=exp_analytic_file(where=(Aggregate_Level='S')) 
 	order=freq;
@@ -60,18 +68,24 @@ proc freq
 ;
 run;
 
+title;
+footnote;
+
+
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 
 title1
-'Research Question: How does charter schools compare to public schools in 
-expulsion?'
+'Research Question: How does charter schools compare to public schools in expulsion?'
 ;
 
 title2
-'Rationale:This will help in identifying which schools perform better and look 
-at adopting any best practices.'
+'Rationale:This will help in identifying which schools perform better and look at adopting any best practices.'
+;
+
+footnote1
+"Initial review shows lesser expulsions in Charter Schools compared to Non charter schools."
 ;
 
 *
@@ -96,19 +110,29 @@ proc freq
 ;
 run;
 
+title;
+footnote;
+
+
+
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 
 title1
-'Research Question: Does Reduced Meals program help in controlling the 
-expulsion?'
+'Research Question: Does Reduced Meals program help in controlling the expulsion?'
 ;
 
 title2
-'Rationale: This can help in identifying if student benefits, encourage 
-students to grow up with good beahivours controlling the expulsion 
-scenarios.'
+'Rationale: This can help in identifying if student benefits, encourage students to grow up with good beahivours controlling the expulsion scenarios.'
+;
+
+footnote1
+"There is no clear relationship between Free meals and Expulsions."
+;
+
+footnote2
+"However, on most occasions, expulsions reduced with free meal count."
 ;
 
 *
@@ -134,7 +158,5 @@ proc freq
 ;
 run;
 
-
-
-
-
+title;
+footnote;
