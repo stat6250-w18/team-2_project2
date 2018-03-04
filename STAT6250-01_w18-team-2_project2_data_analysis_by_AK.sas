@@ -53,9 +53,10 @@ check how the reasons are treated for multiple expulsions for same student.
 
 Follow-up Steps:Analyze and clean the data for any redundant expulsion counts.
 ;
-proc means
+proc freq
 	data=exp_analytic_file(where=(Aggregate_Level='S')) 
-	mean
+	order=freq;
+	tables Expulsions_Violent_Injury*Expulsion_Rate
 ;
 run;
 
@@ -91,7 +92,7 @@ have a NULL value for Charter Type.
 proc freq 
 	data=exp_analytic_file (where=(Aggregate_Level='S'))  
 	order=freq;
-	tables Charter*Unduplicated_count_students_expelled_total/ norow nocol
+	tables Charter_School*Unduplicated_Total_Expulsion/ norow nocol
 ;
 run;
 
@@ -129,7 +130,7 @@ these datasets have uncaptured schools.
 proc freq 
 	data=exp_frpm_analytic_file (where=(Aggregate_Level='S'))  
 	order=freq;
-	tables Percent_Eligible_Free_K12*Unduplicated_count_students_expelled_total/ norow nocol
+	tables Free_Meal_Count*Unduplicated_count_students_expelled_total/ norow nocol
 ;
 run;
 
