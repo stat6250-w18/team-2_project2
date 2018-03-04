@@ -48,9 +48,10 @@ Limitations: Missing data isn't accounted for.
 Follow-up Steps: Omit all rows that have missing information.
 ;
 proc means
-	data = exp_temp mean;
+	data = exp_temp mean
+	;
 	class Charter;
-	var Expulsion_Rate;
+	var exprate;
 run;
 
 
