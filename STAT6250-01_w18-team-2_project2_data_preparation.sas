@@ -316,13 +316,13 @@ data reason_for_exp;
 	Other_Reasons
     ;
     set 
-        EXP1617_raw;
-        Violent_Incident_injury = input(Expulsion_Violent_Injury, ??8.);
-	Violent_Inciden_no_injury = input(Expulsion_Violent_No_Injury, ??8.);
-	Weapons_Possessi = input(Expulsion_Weapons, ??8.);
-	Illicit_Drug_Rel = input(Expulsion_Drug_Related, ??8.);
-	Defiance_only = input(Expulsion_Defiance, ??8.);
-	Other_Reasons = input(Expulsion_Other_Reasons, ??8.)
+    EXP1617_raw;
+    Violent_Incident_injury = input(Expulsion_Violent_Injury, ??8.);
+    Violent_Inciden_no_injury = input(Expulsion_Violent_No_Injury, ??8.);
+    Weapons_Possessi = input(Expulsion_Weapons, ??8.);
+    Illicit_Drug_Rel = input(Expulsion_Drug_Related, ??8.);
+    Defiance_only = input(Expulsion_Defiance, ??8.);
+    Other_Reasons = input(Expulsion_Other_Reasons, ??8.)
     ;
 run;
 
@@ -345,7 +345,7 @@ data total_exp;
 	County_Name
 	;
     set 
-        EXP1617_raw;
+    EXP1617_raw;
     Expulsions = input(Total_Expulsion, ??8.);
     if cmiss(of School_Name) then delete;
 run;
