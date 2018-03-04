@@ -21,8 +21,7 @@ See included file for dataset properties
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file that generates analytic datasets 
-* file names
+* load external file that generates analytic datasets;
 %include '.\STAT6250-01_w18-team-2_project2_data_preparation.sas';
 
 
@@ -35,8 +34,15 @@ title1
 ;
 
 title2
-'Rationale:This would help in focusing more on those factors and help in 
-overcoming expulsion.'
+'Rationale:This would help in focusing more on those factors and help in overcoming expulsion.'
+;
+
+footnote1
+"Initial analysis done for Expulsion due to Violent Injuries which is not a significant contributor for Expulsions."
+;
+
+footnote2
+"Further analysis should be done for all other factors."
 ;
 
 *
@@ -53,24 +59,32 @@ check how the reasons are treated for multiple expulsions for same student.
 
 Follow-up Steps:Analyze and clean the data for any redundant expulsion counts.
 ;
-proc means
+
+proc freq
 	data=exp_analytic_file(where=(Aggregate_Level='S')) 
-	mean
+	order=freq;
+	tables Expulsions_Violent_Injury*Expulsion_Rate
 ;
 run;
+
+title;
+footnote;
+
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 
 title1
-'Research Question: How does charter schools compare to public schools in 
-expulsion?'
+'Research Question: How does charter schools compare to public schools in expulsion?'
 ;
 
 title2
-'Rationale:This will help in identifying which schools perform better and look 
-at adopting any best practices.'
+'Rationale:This will help in identifying which schools perform better and look at adopting any best practices.'
+;
+
+footnote1
+"Initial review shows lesser expulsions in Charter Schools compared to Non charter schools."
 ;
 
 *
@@ -91,23 +105,33 @@ have a NULL value for Charter Type.
 proc freq 
 	data=exp_analytic_file (where=(Aggregate_Level='S'))  
 	order=freq;
-	tables Charter*Unduplicated_count_students_expelled_total/ norow nocol
+	tables Charter_School*Unduplicated_Total_Expulsion/ norow nocol
 ;
 run;
+
+title;
+footnote;
+
+
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 
 title1
-'Research Question: Does Reduced Meals program help in controlling the 
-expulsion?'
+'Research Question: Does Reduced Meals program help in controlling the expulsion?'
 ;
 
 title2
-'Rationale: This can help in identifying if student benefits, encourage 
-students to grow up with good beahivours controlling the expulsion 
-scenarios.'
+'Rationale: This can help in identifying if student benefits, encourage students to grow up with good beahivours controlling the expulsion scenarios.'
+;
+
+footnote1
+"There is no clear relationship between Free meals and Expulsions."
+;
+
+footnote2
+"However, on most occasions, expulsions reduced with free meal count."
 ;
 
 *
@@ -129,11 +153,9 @@ these datasets have uncaptured schools.
 proc freq 
 	data=exp_frpm_analytic_file (where=(Aggregate_Level='S'))  
 	order=freq;
-	tables Percent_Eligible_Free_K12*Unduplicated_count_students_expelled_total/ norow nocol
+	tables Free_Meal_Count*Unduplicated_count_students_expelled_total/ norow nocol
 ;
 run;
 
-
-
-
-
+title;
+footnote;
