@@ -305,15 +305,18 @@ data reason_for_exp;
 	Weapons_Possessi
 	Illicit_Drug_Rel
 	Defiance_only
-	Other_Reasons;
-	keep
+	Other_Reasons
+    ;
+    keep
 	Violent_Incident_injury
 	Violent_Inciden_no_injury
 	Weapons_Possessi
 	Illicit_Drug_Rel
 	Defiance_only
-	Other_Reasons;
-	set EXP1617_raw;
+	Other_Reasons
+    ;
+    set 
+        EXP1617_raw;
 	Violent_Incident_injury = input(Expulsion_Violent_Injury, ??8.);
 	Violent_Inciden_no_injury = input(Expulsion_Violent_No_Injury, ??8.);
 	Weapons_Possessi = input(Expulsion_Weapons, ??8.);
