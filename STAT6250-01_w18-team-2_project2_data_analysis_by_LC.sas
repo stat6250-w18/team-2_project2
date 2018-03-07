@@ -61,7 +61,8 @@ proc means
 	class Charter;
 	var exprate;
 run;
-
+title;
+footnote;
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
@@ -72,7 +73,11 @@ title1
 ;
 
 title2
-'Rationale: This would help identify which behaviors are most problematic and could help school administration and counselors target more at risk students.'
+'Rationale: This would help identify which behaviors are most problematic'
+;
+
+title3
+'"and could help school administration and counselors target more at risk students.'
 ;
 
 footnote1
@@ -90,11 +95,30 @@ Limitations: Not all primary keys are unique.
 Follow-up Steps: Use a composite key.
 ;
 
-proc means
-	data=reason_for_exp
-	mean MAXDEC=2;
+proc sql;
+	create table Total_reasons_for_exp as
+	select sum(Defiance_only) as Defiance_Expulsions,
+	sum(Violent_Incident_injury) as Violent_incident_injury,
+	sum(Violent_Inciden_no_injury) as Violent_Incident_no_injury,
+	sum(Weapons_Possessi) as Weapons_Possession,
+	sum(Illicit_Drug_Rel) as Illicit_Drug_Related,
+	sum(Other_Reasons) as Other
+	from reason_for_exp;
+quit;
+proc transpose 
+	data=Total_reasons_for_exp
+	out=Total_reasons_for_exp
+ (KEEP=_NAME_ COL1
+ RENAME=(COL1=Total));
 run;
-
+proc gchart  data=Total_reasons_for_exp;
+	pie _Name_ / sumvar=Total
+              percent=arrow
+              slice=arrow
+              noheading;
+run;
+title;
+footnote;
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
@@ -130,3 +154,5 @@ Follow-up Steps: Omit all rows that have missing information.
 proc print
 	data = total_exp(obs=5);
 run;
+title;
+footnote;
