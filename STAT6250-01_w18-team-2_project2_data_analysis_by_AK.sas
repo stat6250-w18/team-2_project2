@@ -60,13 +60,28 @@ check how the reasons are treated for multiple expulsions for same student.
 Follow-up Steps:Analyze and clean the data for any redundant expulsion counts.
 ;
 
-proc freq
-	data=exp_analytic_file(where=(Aggregate_Level='S')) 
-	order=freq;
-	tables Expulsions_Violent_Injury*Expulsion_Rate
-;
+proc sql;
+	create table Expulsion_Reasons as
+	select sum(input(Expulsion_Violent_Injury, 8.)) as Expulsion_Violent_Injury,
+    	sum(input(Expulsion_Violent_No_Injury, 8.)) as Expulsion_Violent_No_Injury,
+    	sum(input(Expulsion_Weapons, 8.)) as Expulsion_Weapons,
+    	sum(input(Expulsion_Drug_Related, 8.)) as Expulsion_Drug_Related,
+    	sum(input(Expulsion_Defiance, 8.)) as Expulsion_Defiance,
+    	sum(input(Expulsion_Other_Reasons, 8.)) as Expulsion_Other_Reasons
+	from Exp_analytic_file_ak
+    	where Aggregate_Level="T";
+quit;
+proc transpose 
+	data=Expulsion_Reasons
+	out=Expulsion_Reasons
+ (KEEP=_NAME_ COL1
+ RENAME=(COL1=Total));
 run;
-
+proc gchart  data=Expulsion_Reasons;
+    title1 'Reasons for Expulsion 2015-17';
+	label _NAME_='Expulsion Reason' Total='Number of Expulsions';
+	vbar _Name_ / discrete type=mean sumvar=Total mean;
+run;
 title;
 footnote;
 
