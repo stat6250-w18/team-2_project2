@@ -364,7 +364,7 @@ run;
 * Creating EXP analytic file merging 2015-16 and 2016-17 data retaining aggregates at all levels for AK data analysis
 proc sort
         data=EXP1516_raw
-        out=EXP1516_raw_sorted_ak(RENAME= (Unduplicated_Count_of_Students_E=Unduplicated_Total_Expulsion Unduplicated_Count_of_Students_1=Unduplicated_Expulsion_Defiance Expulsion_Rate__Total_=Expulsion_Total Expulsion_Rate__Total_=Expulsion_Rate Expulsion_Count_Violent_Incident=Expulsion_Violent_Injury Expulsion_Count_Violent_Inciden1=Expulsion_Violent_No_Injury Expulsion_Count_Weapons_Possessi=Expulsion_Weapons Expulsion_Count_Illicit_Drug_Rel=Expulsion_Drug_Related Expulsion_Count_of_Students_Expe=Expulsion_Defiance Expulsion_Count_Other_Reasons=Expulsion_Other_Reasons ))
+        out=EXP1516_raw_sorted_ak(RENAME= (Unduplicated_Count_of_Students_E=Unduplicated_Total_Expulsion Unduplicated_Count_of_Students_1=Unduplicated_Expulsion_Defiance Expulsion_Rate__Total_=Expulsion_Total Expulsion_Rate__Total_=Expulsion_Rate Expulsion_Count_Violent_Incident=Expulsion_Violent_Injury Expulsion_Count_Violent_Inciden1=Expulsion_Violent_No_Injury Expulsion_Count_Weapons_Possessi=Expulsion_Weapons Expulsion_Count_Illicit_Drug_Rel=Expulsion_Drug_Related Expulsion_Count_of_Students_Expe=Expulsion_Defiance Expulsion_Count_Other_Reasons=Expulsion_Other_Reasons))
     ;
     by
         County_Code
@@ -412,8 +412,8 @@ data exp_analytic_file_ak;
         Reporting_Category
         Cumulative_Enrollment
         Total_Expulsions
-        Unduplicated_Count_of_Students_E
-        Expulsion_Rate__Total_
+        Unduplicated_Total_Expulsion
+        Expulsion_Rate
         Expulsion_Violent_Injury
         Expulsion_Violent_No_Injury
         Expulsion_Weapons
