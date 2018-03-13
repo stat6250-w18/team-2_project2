@@ -117,13 +117,19 @@ Followup Steps:Analyse the data to check if any School level aggregates
 have a NULL value for Charter Type.
 ;
 
-proc freq 
-	data=exp_analytic_file (where=(Aggregate_Level='S'))  
-	order=freq;
-	tables Charter_School*Unduplicated_Total_Expulsion/ norow nocol
-;
+proc sql;
+	create table Expulsion_Charter as
+	select Charter_School,
+	sum(input(Expulsion_Rate, 8.)) as Expulsion_Rate
+    	from Exp_analytic_file_ak
+    	where Aggregate_Level="S"
+	group by Charter_School;
+quit;
+proc sql;
+	select *
+	from Expulsion_Charter;
+quit;
 run;
-
 title;
 footnote;
 
