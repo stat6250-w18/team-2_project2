@@ -38,11 +38,11 @@ title2
 ;
 
 footnote1
-"Initial analysis done for Expulsion due to Violent Injuries which is not a significant contributor for Expulsions."
+"Analysis shows that Expulsion rate is higher for Drug related incidents."
 ;
 
 footnote2
-"Further analysis should be done for all other factors."
+"It is followed by Violent behaviours."
 ;
 
 *
@@ -99,7 +99,11 @@ title2
 ;
 
 footnote1
-"Initial review shows lesser expulsions in Charter Schools compared to Non charter schools."
+"Initial analysis shows expulsions are significantly lesser in Charter Schools compared to Non charter schools."
+;
+
+footnote2
+"Analysis can further be drilled down to factor levels and identify best practices adopted in Charter Schools."
 ;
 
 *
@@ -148,11 +152,11 @@ title2
 ;
 
 footnote1
-"There is no clear relationship between Free meals and Expulsions."
+"Analysis clearly proves that Expulsion cases seems to be decrease with signigicant offering of the Free Meal programs"
 ;
 
 footnote2
-"However, on most occasions, expulsions reduced with free meal count."
+"Given this relationship further analysis should be done with more data and if proved, schools should look at adopting Reduced Meals program."
 ;
 
 *
@@ -179,9 +183,9 @@ proc sql;
 	where School_Code > 0
     group by Unduplicated_Total_Expulsion;
 quit;
-proc sql
+proc sql;
 	select *
-	from Expulsion_Free_Meals
+	from Expulsion_Free_Meals;
 quit;
 run;
 title;
