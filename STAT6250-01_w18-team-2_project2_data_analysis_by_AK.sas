@@ -171,12 +171,18 @@ Expulsion and FRPM datasets were mapped.This is to identify if any of
 these datasets have uncaptured schools.
 ;
 
-proc freq 
-	data=exp_frpm_analytic_file (where=(Aggregate_Level='S'))  
-	order=freq;
-	tables Free_Meal_Count*Unduplicated_count_students_expelled_total/ norow nocol
-;
+proc sql;
+	create table Expulsion_Free_Meals as
+	select Unduplicated_Total_Expulsion,
+	sum(Free_Meal_count) as Free_Meal_Count
+	from Exp_frpm_analytic_file
+	where School_Code > 0
+    group by Unduplicated_Total_Expulsion;
+quit;
+proc sql
+	select *
+	from Expulsion_Free_Meals
+quit;
 run;
-
 title;
 footnote;
