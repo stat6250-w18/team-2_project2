@@ -78,7 +78,7 @@ proc transpose
  RENAME=(COL1=Total));
 run;
 proc gchart  data=Expulsion_Reasons;
-    title1 'Reasons for Expulsion 2015-17';
+    title3 'Reasons for Expulsion 2015-17';
 	label _NAME_='Expulsion Reason' Total='Number of Expulsions';
 	vbar _Name_ / discrete type=mean sumvar=Total mean;
 run;
@@ -148,7 +148,7 @@ title1
 ;
 
 title2
-'Rationale: This can help in identifying if student benefits, encourage students to grow up with good beahivours controlling the expulsion scenarios.'
+'Rationale: This can help in identifying if student benefits, encourage students to grow up with good behaivours controlling the expulsion scenarios.'
 ;
 
 footnote1
@@ -156,7 +156,7 @@ footnote1
 ;
 
 footnote2
-"Given this relationship further analysis should be done with more data and if proved, schools should look at adopting Reduced Meals program."
+"Given this relationship, further analysis should be done with more data and if proved, schools should look at adopting Reduced Meals program."
 ;
 
 *
