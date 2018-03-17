@@ -35,7 +35,7 @@ title1
 ;
 
 title2
-'Rationale: This could help us identify which districts have the most expulsions with vioence and consequently consider the appropriate outreach program using datasets EXP1516 and EXP1617.'
+'Rationale: This could help us identify which districts have the most expulsions with violence and consequently consider the appropriate outreach program using datasets EXP1516 and EXP1617.'
 ;
 
 footnote1
@@ -148,27 +148,31 @@ footnote;
 *******************************************************************************;
 
 title1
-'Research Question: Can Student Poverty Free or Reduced Price Meals be used to predict the number of expulsions in 2016-2017?'
+'Research Question: What are the top ten counties had the highest drug related expulsions?'
 ;
 
 title2
-"Rationale: By using dataset EXP1617 and FRPM1617 we can identify if there is a relationship between the two"
+"Rationale: By using dataset EXP1516 and EXP1617 we can identify which counties are having the highest drug related problems."
 ;
 
 footnote1
-"There is no relationship between meal count and expulsions."
+"The County with the highest expulsion due to drugs is missing County Name therefore cannot be identified."
 ;
 
 footnote2
-"Further analysis and better visual representation needs to be completed to understand the relationship between the two."
+"The most problematic counties are located in Southern California."
+;
+
+footnote3
+"This suggests drugs are being traded near this region and further investigation with law enforcement should be made to elimate drug abuse."
 ;
 
 *
-Note: This compares the column "Unduplicated Total Expulsion" 
-from EXP1617 to the column "Free Meal Count" from FRPM1617.
+Note: This compares the column "Illicit Drug Rel" 
+from EXP1516 and EXP1617 to the column "County Name."
 
-Methodology: After combining expulsion 2016-2017 and FRPM datasets, use 
-composite key to use proc freq.
+Methodology: After combining expulsions 2015-16 and 2016-2017, use 
+composite key to use proc sort and proc print
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for values
@@ -181,13 +185,16 @@ handle missing data, e.g., by using a previous year's data or a rolling
 average of previous years' data as a proxy.
 ;
 
-proc freq 
-	data=EXP_FRPM_ANALYTIC_FILE 
-	order=freq
+proc print
+        data=Drug_Sorted_AA (obs=10)
     ;
-   	table Free_Meal_Count*Unduplicated_Total_Expulsion
-    	/ norow nocol
+    id
+        County_name
     ;
+    var
+        illicit_Drug_Rel District_code
+    ;
+	title 'Top counties in CA with the highest number of drug related expulsions between 2015-2017';
 run;
 
 title;

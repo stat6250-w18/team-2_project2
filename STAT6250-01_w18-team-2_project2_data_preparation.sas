@@ -433,9 +433,8 @@ data exp_analytic_file_ak;
     ;
 run;
 
-*For Q1 AA
 
-data EXP_ANALYTIC_FILE_AA;	
+ Data EXP_ANALYTIC_FILE_AA;
     retain
     Violent_Incident_injury
 	Violent_Inciden_no_injury
@@ -445,6 +444,7 @@ data EXP_ANALYTIC_FILE_AA;
 	Other_Reasons
 	School_code
 	District_code
+	County _name
     ;
     keep
 	Violent_Incident_injury
@@ -455,6 +455,7 @@ data EXP_ANALYTIC_FILE_AA;
 	Other_Reasons
 	School_Code
 	District_code
+	County_name
     ;
     set 
     EXP1617_raw(where=(Reporting_Category="TA"));
@@ -466,7 +467,16 @@ data EXP_ANALYTIC_FILE_AA;
     Other_Reasons = input(Expulsion_Other_Reasons, ??8.)
     ;
 run;
+*for Question 2;
+
 Proc sort nodupkey
 	data=EXP_ANALYTIC_FILE_AA out=sortedAA;
 	by DESCENDING Violent_Incident_Injury; 
 	run;
+
+	*For Question 3;
+
+	Proc sort nodupkey
+      data=EXP_ANALYTIC_FILE_AA out=Drug_Sorted_AA;
+ 	  by DESCENDING Illicit_Drug_Rel;
+	  run;
