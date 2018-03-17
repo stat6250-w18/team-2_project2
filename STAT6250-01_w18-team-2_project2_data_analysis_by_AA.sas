@@ -142,7 +142,7 @@ proc print
         expulsions county_name
     ;
     title 
-       'Top five schools with the highest number of expulsions between 2015-2017';
+       'Top schools with the highest number of expulsions between 2015-2017';
 run;
 
 title;
