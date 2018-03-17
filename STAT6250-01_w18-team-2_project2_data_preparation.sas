@@ -64,7 +64,7 @@ eligibility data for 2016-2017 (July 1 – June 30) school year in California
 
 [Unique ID Schema] The columns "County Code", "District Code", and "School
 Code" form a composite key CDS_CODE
-;
+
 
 
 * environmental setup;
@@ -350,6 +350,7 @@ data total_exp;
     if cmiss(of School_Name) then delete;
 run;
 
+
 * Sorted total_exp dataset  by total expulsions for Q3 by LC.
 ;
 
@@ -360,6 +361,7 @@ proc sort
 	;
         by descending Expulsions;
 run;
+
 
 * Creating EXP analytic file merging 2015-16 and 2016-17 data retaining aggregates at all levels for AK data analysis
 ;
@@ -434,7 +436,10 @@ data exp_analytic_file_ak;
 run;
 
 
- Data EXP_ANALYTIC_FILE_AA;
+* build analytic dataset from raw datasets with the least number of columns and
+minimal cleaning/transformation needed to address research question in 
+corresponding data-analysis files for AA;
+ data EXP_ANALYTIC_FILE_AA;
     retain
     Violent_Incident_injury
 	Violent_Inciden_no_injury
@@ -467,16 +472,22 @@ run;
     Other_Reasons = input(Expulsion_Other_Reasons, ??8.)
     ;
 run;
-*for Question 2;
 
+
+* Sorted EXP_ANALYTIC_FILE_AA dataset by Violent_Incident-Injury for 
+Q1 and Q2 by AA;
 Proc sort nodupkey
-	data=EXP_ANALYTIC_FILE_AA out=sortedAA;
+	data=EXP_ANALYTIC_FILE_AA 
+	out=sortedAA
+     ;
 	by DESCENDING Violent_Incident_Injury; 
-	run;
+     run;
 
-	*For Question 3;
 
-	Proc sort nodupkey
-      data=EXP_ANALYTIC_FILE_AA out=Drug_Sorted_AA;
- 	  by DESCENDING Illicit_Drug_Rel;
-	  run;
+* Sorted EXP_ANALYTIC_FILE_AA dataset by Illicit_Drug_Rel for Q3 by AA;
+Proc sort nodupkey
+      data=EXP_ANALYTIC_FILE_AA 
+      out=Drug_Sorted_AA
+    ;
+      by DESCENDING Illicit_Drug_Rel;
+    run;
