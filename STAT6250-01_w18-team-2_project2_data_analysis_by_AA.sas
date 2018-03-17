@@ -39,11 +39,11 @@ title2
 ;
 
 footnote1
-"The top two districts are missing the codes and consequently cannot be identified."
+"The top three districts are missing district and school codes and consequently cannot be identified."
 ;
 
 footnote2
-"The third district has zero expulsions."
+"The district that can be identified with the highest expulsion rate is district 62166"
 ;
 
 footnote3
@@ -67,16 +67,15 @@ a previous year's data or a rolling average of previous years' data as
 a proxy.
 ;
 
-proc print
-        data=EXP_ANALYTIC_FILE(obs=3)
-    ;
-    id
-        district_code
-    ;
-    var
-        expulsion_violent_injury
-    ;
-run;
+Proc Print data=sortedAA (obs=10)
+	;
+	var 
+		Violent_Incident_Injury district_code School_code;
+	title 
+		'Districts with highest injury related expulsions between 2015-2017';
+	title2 
+		'Listed by district and school code';
+	run;
 
 title;
 footnote;
@@ -95,15 +94,19 @@ title2
 ;
 
 footnote1
-"The top three schools are missing school code and cannot be identified"
+"The top five schools are Las Plumas High, Pershing Continuation High, Lemoore High, Oroville High, Liberty Middle."
 ;
 
 footnote2
-"School code 112607 is listed twice, once with missing data and another with zero."
+"County name is also listed to identify if schools with highest expulsion rates are from the same county"
 ;
 
 footnote3
-"Further analysis and data cleaning needs to be completed to answer the research questions."
+"This suggests Butte and Kings County need community and district aid to decrease expulsion rate."
+;
+
+footnote4
+"The number of expulsion rates may be much higher in other schools hence this does not account for missing data"
 ;
 
 *
@@ -125,14 +128,15 @@ a proxy.
 ;
 
 proc print
-        data=EXP_ANALYTIC_FILE(obs=5)
+        data=total_exp(obs=10)
     ;
     id
-        school_code
+        school_name
     ;
     var
-        total_expulsions
+        expulsions county_name
     ;
+	title 'Top five schools with the highest number of expulsions between 2015-2017';
 run;
 
 title;
