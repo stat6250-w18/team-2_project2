@@ -22,7 +22,7 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 
 
 * load external file that generates analytic datasets EXP1617_RAW_SORTED, 
-  EXP1516_RAW_SORTED, FRM1617_RAW_SORTED
+  EXP1516_RAW_SORTED, FRM1617_RAW_SORTED;
 %include '.\STAT6250-01_w18-team-2_project2_data_preparation.sas';
 
 
@@ -51,11 +51,12 @@ footnote3
 ;
 
 *
-Note: This compares the column "district code" and "Expulsion Violent 
+Note: This compares the column "District Code" and "Violent Incident
 Injury" from EXP1516 to the column of the same name from EXP1617.
 
-Methodology: After combining EXP1516 and EXP1617 during data preparation, 
-use proc print to display the first three rows of the sorted dataset
+Methodology: After combining EXP1516 and EXP1617 during data preparation
+and sorting through the data, use proc print to display the first ten
+rows of the sorted dataset.
 
 Limitations: This methodology does not account for schools with missing 
 data, nor does it attempt to validate data in any way, like filtering for
@@ -64,18 +65,22 @@ percentages between 0 and 1.
 Followup Steps: More carefully clean values in order to filter out any 
 possible illegal values, and better handle missing data, e.g., by using 
 a previous year's data or a rolling average of previous years' data as 
-a proxy.
+a proxy. Ensuring schools report everything correctly.
 ;
 
-Proc Print data=sortedAA (obs=10)
-	;
-	var 
-		Violent_Incident_Injury district_code School_code;
-	title 
-		'Districts with highest injury related expulsions between 2015-2017';
-	title2 
-		'Listed by district and school code';
-	run;
+Proc Print 
+	data=sortedAA (obs=10)
+     ;
+     var 
+	Violent_Incident_Injury district_code School_code
+     ;
+     title 
+	'Districts with highest injury related expulsions between 2015-2017 in CA'
+     ;
+     title2 
+	'Listed by district and school code'
+     ;
+run;
 
 title;
 footnote;
@@ -102,20 +107,20 @@ footnote2
 ;
 
 footnote3
-"This suggests Butte and Kings County need community and district aid to decrease expulsion rate."
+"This suggests Butte and Kings County need more outreach programs to decrease expulsion rate."
 ;
 
 footnote4
-"The number of expulsion rates may be much higher in other schools hence this does not account for missing data"
+"The number of expulsion rates may be much higher in other schools hence this does not account for missing or unreported data"
 ;
 
 *
-Note: This compares the column "School Code" and "Total Expulsion"
+Note: This compares the column "School Name" and "Expulsions"
 from EXP1516 to the column of the same name from EXP1617.
 
-Methodology: After combining EXP1516 and EXP1617 during data preparation,
-Use proc print to display the first five schools with highest 
-expulsion. 
+Methodology: After combining EXP1516 and EXP1617 during data preparation
+and sorting dataset. Use proc print to display the top five schools
+with highest expulsion. 
 
 Limitations: This methodology does not account for schools with missing 
 data, nor does it attempt to validate data in any way, like filtering for
@@ -136,7 +141,8 @@ proc print
     var
         expulsions county_name
     ;
-	title 'Top five schools with the highest number of expulsions between 2015-2017';
+    title 
+       'Top five schools with the highest number of expulsions between 2015-2017';
 run;
 
 title;
@@ -152,7 +158,7 @@ title1
 ;
 
 title2
-"Rationale: By using dataset EXP1516 and EXP1617 we can identify which counties are having the highest drug related problems."
+"Rationale: By using dataset EXP1516 and EXP1617 we can identify which counties are having the highest drug related problems and if law enforcement should get involved."
 ;
 
 footnote1
@@ -168,16 +174,16 @@ footnote3
 ;
 
 *
-Note: This compares the column "Illicit Drug Rel" 
-from EXP1516 and EXP1617 to the column "County Name."
+Note: This compares the column "Illicit Drug Rel" and "County Name"
+from EXP1516 to the column of the same name from EXP1617.
 
 Methodology: After combining expulsions 2015-16 and 2016-2017, use 
-composite key to use proc sort and proc print
+proc sort to sort by "Illicit Drug Rel" and proc print for the
+top ten observations.
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for values
-outside of admissable values. This also does not account for students that 
-are in poverty but not in the FRPM1617 data.
+outside of admissable values. 
 
 Follow up Steps: More carefully clean the values of variables so that the
 statistics computed do not include any possible illegal values, and better
@@ -194,7 +200,8 @@ proc print
     var
         illicit_Drug_Rel District_code
     ;
-	title 'Top counties in CA with the highest number of drug related expulsions between 2015-2017';
+    title 
+        'Top counties in CA with the highest number of drug related expulsions between 2015-2017';
 run;
 
 title;
