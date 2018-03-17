@@ -432,3 +432,41 @@ data exp_analytic_file_ak;
         School_Code
     ;
 run;
+
+*For Q1 AA
+
+data EXP_ANALYTIC_FILE_AA;	
+    retain
+    Violent_Incident_injury
+	Violent_Inciden_no_injury
+	Weapons_Possessi
+	Illicit_Drug_Rel
+	Defiance_only
+	Other_Reasons
+	School_code
+	District_code
+    ;
+    keep
+	Violent_Incident_injury
+	Violent_Inciden_no_injury
+	Weapons_Possessi
+	Illicit_Drug_Rel
+	Defiance_only
+	Other_Reasons
+	School_Code
+	District_code
+    ;
+    set 
+    EXP1617_raw(where=(Reporting_Category="TA"));
+    Violent_Incident_injury = input(Expulsion_Violent_Injury, ??8.);
+    Violent_Inciden_no_injury = input(Expulsion_Violent_No_Injury, ??8.);
+    Weapons_Possessi = input(Expulsion_Weapons, ??8.);
+    Illicit_Drug_Rel = input(Expulsion_Drug_Related, ??8.);
+    Defiance_only = input(Expulsion_Defiance, ??8.);
+    Other_Reasons = input(Expulsion_Other_Reasons, ??8.)
+    ;
+run;
+Proc sort nodupkey
+	data=EXP_ANALYTIC_FILE_AA out=sortedAA;
+	by DESCENDING Violent_Incident_Injury; 
+	run;
